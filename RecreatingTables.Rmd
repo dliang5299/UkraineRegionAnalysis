@@ -1,0 +1,138 @@
+---
+title: "Recreating Tables"
+output: html_notebook
+---
+
+```{r}
+# libraries
+library(tidyverse)
+library(haven)
+library(catspec)
+```
+
+```{r}
+# recode 5 to 0
+aff_raw$DSM_MDE[aff_raw$DSM_MDE == 5] <- 0
+aff_raw$DSM_DYS[aff_raw$DSM_DYS == 5] <- 0
+aff_raw$D_MDE12[aff_raw$D_MDE12 == 5] <- 0
+aff_raw$D_DYS12[aff_raw$D_DYS12 == 5] <- 0
+alc_raw$DSM_ALA[alc_raw$DSM_ALA == 5] <- 0
+alc_raw$DSM_ALD[alc_raw$DSM_ALD == 5] <- 0
+alc_raw$D_ALA12[alc_raw$D_ALA12 == 5] <- 0
+alc_raw$D_ALD12[alc_raw$D_ALD12 == 5] <- 0
+ied_raw$DSM_IED[ied_raw$DSM_IED == 5] <- 0
+ied_raw$D_IED12[ied_raw$D_IED12 == 5] <- 0
+anx_raw$DSM_AGO[anx_raw$DSM_AGO == 5] <- 0
+anx_raw$DSM_GAD[anx_raw$DSM_GAD == 5] <- 0
+anx_raw$DSM_PDS[anx_raw$DSM_PDS == 5] <- 0
+anx_raw$DSM_SO[anx_raw$DSM_SO == 5] <- 0
+anx_raw$D_AGO12[anx_raw$D_AGO12 == 5] <- 0
+anx_raw$D_GAD12[anx_raw$D_GAD12 == 5] <- 0
+anx_raw$D_PDS12[anx_raw$D_PDS12 == 5] <- 0
+anx_raw$D_SO12[anx_raw$D_SO12 == 5] <- 0
+cher$dm40[cher$dm40 == 5] <- 0
+cher$dm40[cher$dm40 == 8] <- 0
+cher$dm40[cher$dm40 == 9] <- 0
+cher$dm40[is.na(cher$dm40)] <- 0
+```
+
+```{r}
+# separate cher data
+cher_yes <-
+  cher %>%
+  filter(dm40 == 1)
+## n = 232???
+
+cher_no <-
+  cher %>%
+  filter(dm40 == 0)
+## n = 4493??
+```
+
+
+```{r}
+# indicators for core conditions
+aff <-
+  aff_raw %>%
+  mutate(afflifesum = DSM_MDE + DSM_DYS,
+         affyearsum = D_MDE12 + D_DYS12,
+         afflife = ifelse(afflifesum == 0, 0, 1),
+         affyear = ifelse(affyearsum == 0, 0, 1)) %>%
+  select(sampleid, afflife, affyear)
+
+alc <-
+  alc_raw %>%
+  mutate(alclifesum = DSM_ALA + DSM_ALD,
+         alcyearsum = D_ALA12 + D_ALD12,
+         alclife = ifelse(alclifesum == 0, 0, 1),
+         alcyear = ifelse(alcyearsum == 0, 0, 1)) %>%
+  select(sampleid, alclife, alcyear)
+
+anx <-
+  anx_raw %>%
+  mutate(anxlifesum = DSM_GAD + DSM_PDS + DSM_SO + DSM_AGO,
+         anxyearsum = D_GAD12 + D_PDS12 + D_SO12 + D_AGO12, 
+         anxlife = ifelse(anxlifesum == 0, 0, 1),
+         anxyear = ifelse(anxyearsum == 0, 0, 1)) %>%
+  select(sampleid, anxlife, anxyear)
+```
+
+```{r}
+# check if lifetime condition doesn't exist but year cond. does
+afftest <-
+  aff %>%
+  filter(affyear == 1 & afflife == 0)
+
+alctest <-
+  alc %>%
+  filter(alcyear == 1 & alclife == 0)
+
+anxtest <-
+  anx %>%
+  filter(anxyear == 1 & anxlife == 0)
+
+iedtest <-
+  ied_raw %>%
+  filter(D_IED12 == 1 & DSM_IED == 0)
+
+# if year condition exist, then lifetime condition MUST exist  
+```
+
+```{r}
+# merge
+diag1 <-
+  left_join(aff, alc, by = "sampleid")
+diag2 <-
+  left_join(diag1, anx, by = "sampleid")
+diag3 <-
+  left_join(diag2, ied_raw, by = "sampleid")
+diag <-
+  left_join(diag3, cher, by = "sampleid") %>%
+  na.omit()
+```
+
+
+```{r}
+# life table
+alctab <- table(diag[c("alclife", "dm40")])
+afftab <- table(diag[c("afflife", "dm40")])
+anxtab <- table(diag[c("anxlife", "dm40")])
+iedtab <- table(diag[c("DSM_IED", "dm40")])
+alctab
+afftab
+anxtab
+iedtab
+```
+
+```{r}
+# year table
+alctab <- table(diag[c("alcyear", "dm40")])
+afftab <- table(diag[c("affyear", "dm40")])
+anxtab <- table(diag[c("anxyear", "dm40")])
+iedtab <- table(diag[c("D_IED12", "dm40")])
+alctab
+afftab
+anxtab
+iedtab
+```
+

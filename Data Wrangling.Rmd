@@ -1,0 +1,56 @@
+---
+title: "Data Wrangling"
+output: html_notebook
+---
+
+```{r}
+# libraries
+library(data.table)
+library(tidyverse)
+library(haven)
+library(tidyr)
+```
+
+```{r}
+# read data
+surveyobs_raw <-
+  read_sav("Regions_prelim_dataset.sav")
+diag_raw <-
+  read_sav("ukraine_dia.sav")
+cidi_raw <-
+  read_sav("ukraine_main_RU_0161219.sav")
+```
+
+```{r}
+# religion dataset
+cidi <-
+  cidi_raw %>%
+  filter(!is.na(DE4)) %>%
+  select(sampleid, DE32_1, DE32_2, DE32_3, DE32_4, DE32_5, DE32_6, DE32_7, DE32_8, DE32_9, DE32_98, DE32_99)
+
+write_sav(cidi, "religion.sav")
+```
+
+```{r}
+# chern. q
+cher <-
+  cidi_raw %>%
+  select(sampleid, dm40)
+```
+
+```{r}
+# subset diag data
+alc_raw <-
+  diag_raw %>%
+  select(sampleid, DSM_ALA, DSM_ALD, D_ALA12, D_ALD12)
+anx_raw <-
+  diag_raw %>%
+  select(sampleid, DSM_GAD, DSM_PDS, DSM_SO, DSM_AGO, D_GAD12, D_PDS12, D_SO12, D_AGO12)
+ied_raw <-
+  diag_raw %>%
+  select(sampleid, DSM_IED, D_IED12)
+aff_raw <-
+  diag_raw %>%
+  select(sampleid, DSM_MDE, DSM_DYS, D_MDE12, D_DYS12)
+```
+
