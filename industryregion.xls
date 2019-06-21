@@ -1,0 +1,153 @@
+<html xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta http-equiv="Content-Type" content="charset=windows-1251"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>matrix</x:Name><x:WorksheetOptions><x:Print><x:ValidPrinterInfo/></x:Print></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--> </head><body><style>.stub1{mso-style-parent:style0;mso-number-format:"\@";}.stub2{mso-style-parent:style0;mso-number-format:"\@";}.stub3{mso-style-parent:style0;mso-number-format:"\@";}.stub4{mso-style-parent:style0;mso-number-format:"\@";}.stub5{mso-style-parent:style0;mso-number-format:"\@";}.stub6{mso-style-parent:style0;mso-number-format:"\@";}.headfirst{mso-style-parent:style0;mso-number-format:"\@";}.headlast{mso-style-parent:style0;mso-number-format:"\@";}.headmid{mso-style-parent:style0;mso-number-format:"\@";}.title{mso-style-parent:style0;text-align:left;}<style><table class="pxtable"border="1"cellpadding="5"cellspacing="0">
+<tr>
+<th class="title" colspan="12">Distribution of the population by source of livelihood and age (persons) by Age groups, Region, Year, Settlement type, Gender and Source of livelihood </th>
+</tr>
+<tr>
+<th class="headfirst" colspan="1" rowspan="4">&nbsp;</th>
+<th class="headfirst" colspan="11">1989(12.01)</th>
+</tr>
+<tr><th class="headmid" colspan="11">Urban settlements and rural area</th>
+</tr>
+<tr><th class="headmid" colspan="11">Both genders</th>
+</tr>
+<tr><th class="headlast" colspan="1">work in enterprise, organization</th>
+<th class="headlast" colspan="1">work in farm</th>
+<th class="headlast" colspan="1">work in cooperative enterprise</th>
+<th class="headlast" colspan="1">working for individual employees</th>
+<th class="headlast" colspan="1">work on individual labor contract</th>
+<th class="headlast" colspan="1">personal subsidiary economy</th>
+<th class="headlast" colspan="1">pension, public assistance</th>
+<th class="headlast" colspan="1">fellowship</th>
+<th class="headlast" colspan="1">another kind of public support</th>
+<th class="headlast" colspan="1">dependant of individuals</th>
+<th class="headlast" colspan="1">another source</th>
+</tr>
+<tr>
+<td class="stub1" rowspan="1" >Whole population</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td class="stub2" >Krymska oblast</td>
+<td nowrap>1 153 210</td><td nowrap>110 490</td><td nowrap>10 984</td><td nowrap>311</td><td nowrap>1 711</td><td nowrap>7 451</td><td nowrap>409 483</td><td nowrap>47 268</td><td nowrap>13 746</td><td nowrap>670 139</td><td nowrap>5 702</td>
+</tr>
+<tr>
+<td class="stub2" >Vinnytska oblast</td>
+<td nowrap>664 838</td><td nowrap>245 297</td><td nowrap>2 973</td><td nowrap>199</td><td nowrap>1 552</td><td nowrap>10 465</td><td nowrap>482 392</td><td nowrap>39 744</td><td nowrap>16 651</td><td nowrap>454 869</td><td nowrap>1 803</td>
+</tr>
+<tr>
+<td class="stub2" >Volynska oblast</td>
+<td nowrap>375 351</td><td nowrap>126 823</td><td nowrap>1 294</td><td nowrap>101</td><td nowrap>818</td><td nowrap>5 066</td><td nowrap>221 137</td><td nowrap>20 102</td><td nowrap>8 316</td><td nowrap>298 400</td><td nowrap>1 030</td>
+</tr>
+<tr>
+<td class="stub2" >Dnipropetrovska oblast</td>
+<td nowrap>1 811 304</td><td nowrap>151 674</td><td nowrap>10 803</td><td nowrap>405</td><td nowrap>2 592</td><td nowrap>9 726</td><td nowrap>768 528</td><td nowrap>113 925</td><td nowrap>18 800</td><td nowrap>978 164</td><td nowrap>3 937</td>
+</tr>
+<tr>
+<td class="stub2" >Donetska oblast</td>
+<td nowrap>2 583 755</td><td nowrap>115 083</td><td nowrap>10 594</td><td nowrap>520</td><td nowrap>3 486</td><td nowrap>9 136</td><td nowrap>1 087 434</td><td nowrap>133 155</td><td nowrap>33 494</td><td nowrap>1 328 773</td><td nowrap>6 351</td>
+</tr>
+<tr>
+<td class="stub2" >Zhytomyrska oblast</td>
+<td nowrap>582 831</td><td nowrap>152 897</td><td nowrap>1 744</td><td nowrap>105</td><td nowrap>863</td><td nowrap>7 060</td><td nowrap>355 501</td><td nowrap>26 443</td><td nowrap>11 493</td><td nowrap>397 452</td><td nowrap>1 215</td>
+</tr>
+<tr>
+<td class="stub2" >Zakarpatska oblast</td>
+<td nowrap>495 146</td><td nowrap>120 028</td><td nowrap>2 780</td><td nowrap>587</td><td nowrap>6 107</td><td nowrap>26 091</td><td nowrap>174 715</td><td nowrap>19 531</td><td nowrap>9 694</td><td nowrap>387 597</td><td nowrap>3 342</td>
+</tr>
+<tr>
+<td class="stub2" >Zaporizka oblast</td>
+<td nowrap>957 098</td><td nowrap>118 488</td><td nowrap>4 042</td><td nowrap>239</td><td nowrap>1 793</td><td nowrap>6 938</td><td nowrap>399 703</td><td nowrap>45 005</td><td nowrap>13 531</td><td nowrap>525 155</td><td nowrap>2 026</td>
+</tr>
+<tr>
+<td class="stub2" >Ivano-Frankivska oblast</td>
+<td nowrap>544 690</td><td nowrap>128 203</td><td nowrap>3 034</td><td nowrap>238</td><td nowrap>4 549</td><td nowrap>34 738</td><td nowrap>253 116</td><td nowrap>27 100</td><td nowrap>14 021</td><td nowrap>402 271</td><td nowrap>1 251</td>
+</tr>
+<tr>
+<td class="stub2" >Kyivska oblast</td>
+<td nowrap>826 061</td><td nowrap>138 580</td><td nowrap>2 949</td><td nowrap>174</td><td nowrap>1 368</td><td nowrap>7 528</td><td nowrap>421 101</td><td nowrap>35 506</td><td nowrap>12 319</td><td nowrap>487 206</td><td nowrap>1 577</td>
+</tr>
+<tr>
+<td class="stub2" >Kirovohradska oblast</td>
+<td nowrap>456 406</td><td nowrap>145 244</td><td nowrap>2 528</td><td nowrap>111</td><td nowrap>786</td><td nowrap>3 402</td><td nowrap>288 589</td><td nowrap>22 016</td><td nowrap>8 490</td><td nowrap>299 525</td><td nowrap>996</td>
+</tr>
+<tr>
+<td class="stub2" >Luhanska oblast</td>
+<td nowrap>1 363 355</td><td nowrap>63 963</td><td nowrap>3 799</td><td nowrap>209</td><td nowrap>1 511</td><td nowrap>6 585</td><td nowrap>616 664</td><td nowrap>65 281</td><td nowrap>19 695</td><td nowrap>713 108</td><td nowrap>2 861</td>
+</tr>
+<tr>
+<td class="stub2" >Lvivska oblast</td>
+<td nowrap>1 213 224</td><td nowrap>156 097</td><td nowrap>5 906</td><td nowrap>241</td><td nowrap>2 924</td><td nowrap>14 211</td><td nowrap>477 186</td><td nowrap>91 944</td><td nowrap>30 802</td><td nowrap>732 716</td><td nowrap>2 159</td>
+</tr>
+<tr>
+<td class="stub2" >Mykolaivska oblast</td>
+<td nowrap>587 089</td><td nowrap>96 092</td><td nowrap>4 050</td><td nowrap>152</td><td nowrap>990</td><td nowrap>4 798</td><td nowrap>241 339</td><td nowrap>25 141</td><td nowrap>7 365</td><td nowrap>359 926</td><td nowrap>1 364</td>
+</tr>
+<tr>
+<td class="stub2" >Odeska oblast</td>
+<td nowrap>1 108 843</td><td nowrap>218 003</td><td nowrap>12 452</td><td nowrap>463</td><td nowrap>2 215</td><td nowrap>13 336</td><td nowrap>473 093</td><td nowrap>74 981</td><td nowrap>17 500</td><td nowrap>699 381</td><td nowrap>3 978</td>
+</tr>
+<tr>
+<td class="stub2" >Poltavska oblast</td>
+<td nowrap>671 224</td><td nowrap>176 013</td><td nowrap>2 504</td><td nowrap>202</td><td nowrap>1 020</td><td nowrap>4 137</td><td nowrap>438 002</td><td nowrap>33 682</td><td nowrap>13 668</td><td nowrap>406 858</td><td nowrap>1 406</td>
+</tr>
+<tr>
+<td class="stub2" >Rivnenska oblast</td>
+<td nowrap>428 566</td><td nowrap>129 536</td><td nowrap>1 593</td><td nowrap>90</td><td nowrap>1 028</td><td nowrap>10 762</td><td nowrap>220 376</td><td nowrap>24 510</td><td nowrap>11 462</td><td nowrap>334 784</td><td nowrap>1 534</td>
+</tr>
+<tr>
+<td class="stub2" >Sumska oblast</td>
+<td nowrap>558 453</td><td nowrap>130 064</td><td nowrap>1 887</td><td nowrap>132</td><td nowrap>725</td><td nowrap>5 434</td><td nowrap>355 749</td><td nowrap>30 853</td><td nowrap>10 565</td><td nowrap>332 636</td><td nowrap>1 000</td>
+</tr>
+<tr>
+<td class="stub2" >Ternopilska oblast</td>
+<td nowrap>374 297</td><td nowrap>183 692</td><td nowrap>2 123</td><td nowrap>73</td><td nowrap>1 043</td><td nowrap>7 127</td><td nowrap>264 894</td><td nowrap>22 148</td><td nowrap>14 046</td><td nowrap>293 860</td><td nowrap>671</td>
+</tr>
+<tr>
+<td class="stub2" >Kharkivska oblast</td>
+<td nowrap>1 518 784</td><td nowrap>108 594</td><td nowrap>10 346</td><td nowrap>248</td><td nowrap>2 007</td><td nowrap>8 578</td><td nowrap>634 470</td><td nowrap>110 563</td><td nowrap>25 098</td><td nowrap>753 443</td><td nowrap>2 544</td>
+</tr>
+<tr>
+<td class="stub2" >Khersonska oblast</td>
+<td nowrap>545 672</td><td nowrap>85 860</td><td nowrap>2 980</td><td nowrap>210</td><td nowrap>1 186</td><td nowrap>8 337</td><td nowrap>224 092</td><td nowrap>25 840</td><td nowrap>9 466</td><td nowrap>331 925</td><td nowrap>1 402</td>
+</tr>
+<tr>
+<td class="stub2" >Khmelnytska oblast</td>
+<td nowrap>526 881</td><td nowrap>205 589</td><td nowrap>1 852</td><td nowrap>97</td><td nowrap>1 098</td><td nowrap>7 187</td><td nowrap>366 560</td><td nowrap>32 337</td><td nowrap>10 432</td><td nowrap>368 602</td><td nowrap>929</td>
+</tr>
+<tr>
+<td class="stub2" >Cherkaska oblast</td>
+<td nowrap>560 309</td><td nowrap>171 758</td><td nowrap>2 506</td><td nowrap>145</td><td nowrap>1 007</td><td nowrap>7 231</td><td nowrap>382 642</td><td nowrap>28 353</td><td nowrap>10 935</td><td nowrap>361 194</td><td nowrap>1 273</td>
+</tr>
+<tr>
+<td class="stub2" >Chernivetska oblast</td>
+<td nowrap>345 132</td><td nowrap>108 218</td><td nowrap>1 980</td><td nowrap>252</td><td nowrap>1 315</td><td nowrap>13 028</td><td nowrap>179 730</td><td nowrap>22 139</td><td nowrap>9 028</td><td nowrap>258 798</td><td nowrap>1 181</td>
+</tr>
+<tr>
+<td class="stub2" >Chernihivska oblast</td>
+<td nowrap>494 631</td><td nowrap>172 511</td><td nowrap>1 955</td><td nowrap>96</td><td nowrap>938</td><td nowrap>5 390</td><td nowrap>388 702</td><td nowrap>25 614</td><td nowrap>7 024</td><td nowrap>315 126</td><td nowrap>783</td>
+</tr>
+<tr>
+<td class="stub2" >Kyiv (miskrada)</td>
+<td nowrap>1 433 764</td><td nowrap>3 118</td><td nowrap>11 182</td><td nowrap>229</td><td nowrap>1 901</td><td nowrap>402</td><td nowrap>318 960</td><td nowrap>112 285</td><td nowrap>16 074</td><td nowrap>671 428</td><td nowrap>2 869</td>
+</tr>
+<tr>
+<td class="stub2" >Sevastopol (miskrada)</td>
+<td nowrap>212 130</td><td nowrap>936</td><td nowrap>1 760</td><td nowrap>69</td><td nowrap>165</td><td nowrap>233</td><td nowrap>57 914</td><td nowrap>12 089</td><td nowrap>1 633</td><td nowrap>105 663</td><td nowrap>423</td>
+</tr>
+<tr>
+<td class="footnote" colspan="12"><B>Footnote: </B><BR>
+Data are given by permanent population.<BR><BR>Extra notes:<BR>The list of settlements of administrative-territorial division (variable Region) is presented in transliteration. <BR><BR>The English version of some transliterated Ukrainian words is presented below:<BR> Region = rehion / oblast <BR> Council (municipality) = rada <BR> City council = miskrada<br>
+</td>
+</tr>
+</table>
+</body></html>

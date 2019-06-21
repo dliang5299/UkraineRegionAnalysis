@@ -5,52 +5,60 @@ output: html_notebook
 
 ```{r}
 # libraries
-library(data.table)
 library(tidyverse)
 library(haven)
-library(tidyr)
+library(data.table)
 ```
 
 ```{r}
 # read data
-surveyobs_raw <-
-  read_sav("Regions_prelim_dataset.sav")
-diag_raw <-
-  read_sav("ukraine_dia.sav")
 cidi_raw <-
-  read_sav("ukraine_main_RU_0161219.sav")
+  fread("ukrmain_RU_061419.csv")
+test_raw <-
+  read_sav("AnalysisDatabaseForStat201.sav")
 ```
 
 ```{r}
-# religion dataset
-cidi <-
+# REPRODUCING THE FOUR CORE CONDITIONS
+diag <-
   cidi_raw %>%
-  filter(!is.na(DE4)) %>%
-  select(sampleid, DE32_1, DE32_2, DE32_3, DE32_4, DE32_5, DE32_6, DE32_7, DE32_8, DE32_9, DE32_98, DE32_99)
-
-write_sav(cidi, "religion.sav")
+  mutate(affected_cher = ifelse(!is.na(dm40), dm40, de40),
+         anx = ifelse(DSM_AGO == 1|DSM_SO == 1|DSM_GAD == 1, 1, 0),
+         # bromet and bolt papers both include panic disorders in anxiety, 
+         # but to match counts it's not included here. investigate.
+         ied = ifelse(DSM_IEDH == 1, 1, 0),
+         aff = ifelse(DSM_MDE == 1|DSM_DYS == 1, 1, 0),
+         alc = ifelse(DSM_ALA == 1|DSM_ALD == 1, 1, 0)) %>%
+  select(sampleid, affected_cher, anx, ied, aff, alc, weight1, secu, strata)
 ```
+
+# Scrap Work
 
 ```{r}
 # chern. q
-cher <-
+cher_raw <-
   cidi_raw %>%
-  select(sampleid, dm40)
+  mutate(affected_cher = ifelse(!is.na(dm40), dm40, de40),
+         sampleid = as.numeric(sampleid)) %>%
+  select(sampleid, AGE, affected_cher, secu, strata, weight1)
 ```
 
 ```{r}
-# subset diag data
-alc_raw <-
+# subset
+diag <-
   diag_raw %>%
-  select(sampleid, DSM_ALA, DSM_ALD, D_ALA12, D_ALD12)
-anx_raw <-
-  diag_raw %>%
-  select(sampleid, DSM_GAD, DSM_PDS, DSM_SO, DSM_AGO, D_GAD12, D_PDS12, D_SO12, D_AGO12)
-ied_raw <-
-  diag_raw %>%
-  select(sampleid, DSM_IED, D_IED12)
-aff_raw <-
-  diag_raw %>%
-  select(sampleid, DSM_MDE, DSM_DYS, D_MDE12, D_DYS12)
+  mutate(sampleid = as.numeric(sampleid)) %>%
+  left_join(cher_raw, by = "sampleid") %>%
+  mutate(anx = ifelse((2002 - AGE + AGO_OND >= 1986) | 
+                        (2002 - AGE + SO_OND >= 1986) |
+                        (2002 - AGE + GAD_OND >= 1986) |
+                        (2002 - AGE + PD_OND >= 1986), 1, 0),
+         ied = ifelse(2002 - AGE + IED_OND >= 1986, 1, 0),
+         aff = ifelse((2002 - AGE + MDE_OND >= 1986) | 
+                        (2002 - AGE + DYS_OND >= 1986), 1, 0),
+         alc = ifelse((2002 - AGE + ALA_OND >= 1986) | 
+                        (2002 - AGE + ALD_OND >= 1986), 1, 0)) %>%
+  select(sampleid, affected_cher, anx, ied, aff, alc, weight1, secu, strata)
 ```
+
 

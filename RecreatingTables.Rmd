@@ -7,46 +7,140 @@ output: html_notebook
 # libraries
 library(tidyverse)
 library(haven)
-library(catspec)
+library(survey)
 ```
 
 ```{r}
-# recode 5 to 0
-aff_raw$DSM_MDE[aff_raw$DSM_MDE == 5] <- 0
-aff_raw$DSM_DYS[aff_raw$DSM_DYS == 5] <- 0
-aff_raw$D_MDE12[aff_raw$D_MDE12 == 5] <- 0
-aff_raw$D_DYS12[aff_raw$D_DYS12 == 5] <- 0
-alc_raw$DSM_ALA[alc_raw$DSM_ALA == 5] <- 0
-alc_raw$DSM_ALD[alc_raw$DSM_ALD == 5] <- 0
-alc_raw$D_ALA12[alc_raw$D_ALA12 == 5] <- 0
-alc_raw$D_ALD12[alc_raw$D_ALD12 == 5] <- 0
-ied_raw$DSM_IED[ied_raw$DSM_IED == 5] <- 0
-ied_raw$D_IED12[ied_raw$D_IED12 == 5] <- 0
-anx_raw$DSM_AGO[anx_raw$DSM_AGO == 5] <- 0
-anx_raw$DSM_GAD[anx_raw$DSM_GAD == 5] <- 0
-anx_raw$DSM_PDS[anx_raw$DSM_PDS == 5] <- 0
-anx_raw$DSM_SO[anx_raw$DSM_SO == 5] <- 0
-anx_raw$D_AGO12[anx_raw$D_AGO12 == 5] <- 0
-anx_raw$D_GAD12[anx_raw$D_GAD12 == 5] <- 0
-anx_raw$D_PDS12[anx_raw$D_PDS12 == 5] <- 0
-anx_raw$D_SO12[anx_raw$D_SO12 == 5] <- 0
-cher$dm40[cher$dm40 == 5] <- 0
-cher$dm40[cher$dm40 == 8] <- 0
-cher$dm40[cher$dm40 == 9] <- 0
-cher$dm40[is.na(cher$dm40)] <- 0
+# created vars frequency counts
+table(diag$aff)
+table(diag$alc)
+table(diag$anx)
+table(diag$ied)
 ```
 
 ```{r}
-# separate cher data
-cher_yes <-
-  cher %>%
-  filter(dm40 == 1)
-## n = 232???
+# existing vars frequency counts
+# names(test_raw)
+table(test_raw$dx_l_aff)
+table(test_raw$dx_l_alc)
+table(test_raw$dx_l_anx)
+table(test_raw$dx_l_iedh)
+```
 
-cher_no <-
-  cher %>%
-  filter(dm40 == 0)
-## n = 4493??
+
+
+
+# Scrapped Work
+
+```{r}
+# recode values
+diag <-
+  diag %>%
+  mutate(ied = ifelse(!is.na(ied), ied, 0),
+         aff = ifelse(!is.na(aff), aff, 0),
+         alc = ifelse(!is.na(alc), alc, 0),
+         anx = ifelse(!is.na(anx), anx, 0), 
+         affected_cher = ifelse(affected_cher == 5, 0, affected_cher),
+         affected_cher = ifelse(affected_cher == 8, 1, affected_cher)) %>%
+  filter(affected_cher < 9)
+```
+
+```{r}
+# set up survey design
+diagdesign <- 
+  svydesign(ids=~secu, strata =~strata, weights =~weight1, nest = T, 
+            data=subset(diag, diag$weight1 >0))
+options(survey.lonely.psu = "adjust")
+```
+
+```{r}
+# chern. tables
+svytable(~affected_cher + alc, design = diagdesign) %>% addmargins() %>% round()
+svytable(~affected_cher + anx, design = diagdesign) %>% addmargins() %>% round()
+svytable(~affected_cher + aff, design = diagdesign) %>% addmargins() %>% round()
+svytable(~affected_cher + ied, design = diagdesign) %>% addmargins() %>% round()
+```
+
+```{r}
+# unweighted tables
+table(diag[c("alc", "affected_cher")])
+table(diag[c("anx", "affected_cher")])
+table(diag[c("aff", "affected_cher")])
+table(diag[c("ied", "affected_cher")])
+```
+
+```{r}
+# subset diag data
+diag_init <-
+  diag_raw %>%
+  select(sampleid, DSM_ALA, DSM_ALD, D_ALA12, D_ALD12, ALA_OND, ALD_OND,
+         DSM_GAD, DSM_PDS, DSM_SO, DSM_AGO, D_GAD12, D_PDS12, D_SO12, 
+         D_AGO12, GAD_OND, PD_OND, SO_OND, AGO_OND,DSM_IED, D_IED12, IED_OND,
+         DSM_MDE, DSM_DYS, D_MDE12, D_DYS12, MDE_OND, DYS_OND) %>%
+  left_join(cher, by = 'sampleid')
+
+
+alc_raw <-
+  diag_init %>%
+  select(sampleid, DSM_ALA, DSM_ALD, ALA_OND, ALD_OND, SC1) %>%
+  ## find difference between current age and age of onset to determine onset after Chernobyl
+  mutate(aladiff = SC1 - ALA_OND,
+         alddiff = SC1 - ALD_OND,
+         DSM_ALA = ifelse(aladiff < 17, 1, 0),
+         DSM_ALD = ifelse(alddiff < 17, 1, 0)) %>%
+  select(sampleid, DSM_ALA, DSM_ALD)
+
+anx_raw <-
+  diag_init %>%
+  select(sampleid, DSM_GAD, DSM_PDS, DSM_SO, DSM_AGO, GAD_OND, PD_OND, SO_OND, AGO_OND, SC1) %>%
+  mutate(gaddiff = SC1 - GAD_OND,
+         pddiff = SC1 - PD_OND,
+         sodiff = SC1 - SO_OND,
+         agodiff = SC1 - AGO_OND,
+         DSM_GAD = ifelse(gaddiff < 17, 1, 0),
+         DSM_PDS = ifelse(pddiff < 17, 1, 0),
+         DSM_SO = ifelse(sodiff < 17, 1, 0),
+         DSM_AGO = ifelse(agodiff < 17, 1, 0)) %>%
+  select(sampleid, DSM_GAD, DSM_PDS, DSM_SO, DSM_AGO)
+
+ied_raw <-
+  diag_init %>%
+  select(sampleid, DSM_IED, IED_OND, SC1) %>%
+  mutate(ieddiff = SC1 - IED_OND,
+         DSM_IED = ifelse(ieddiff < 17, 1, 0)) %>%
+  select(sampleid, DSM_IED)
+
+aff_raw <-
+  diag_init %>%
+  select(sampleid, DSM_MDE, DSM_DYS, MDE_OND, DYS_OND, SC1) %>%
+  mutate(mdediff = SC1 - MDE_OND,
+         dysdiff = SC1 - DYS_OND, 
+         DSM_MDE = ifelse(mdediff < 17, 1, 0),
+         DSM_DYS = ifelse(dysdiff < 17, 1, 0)) %>%
+  select(sampleid, DSM_MDE, DSM_DYS)
+```
+
+```{r}
+# recode NA to 0
+aff_raw$DSM_MDE[is.na(aff_raw$DSM_MDE)] <- 0
+aff_raw$DSM_DYS[is.na(aff_raw$DSM_DYS)] <- 0
+alc_raw$DSM_ALA[is.na(alc_raw$DSM_ALA)] <- 0
+alc_raw$DSM_ALD[is.na(alc_raw$DSM_ALD)] <- 0
+ied_raw$DSM_IED[is.na(ied_raw$DSM_IED)] <- 0
+anx_raw$DSM_AGO[is.na(anx_raw$DSM_AGO)] <- 0
+anx_raw$DSM_GAD[is.na(anx_raw$DSM_GAD)] <- 0
+anx_raw$DSM_PDS[is.na(anx_raw$DSM_PDS)] <- 0
+anx_raw$DSM_SO[is.na(anx_raw$DSM_SO)] <- 0
+
+# aff_raw$D_MDE12[aff_raw$D_MDE12 == 5] <- 0
+# aff_raw$D_DYS12[aff_raw$D_DYS12 == 5] <- 0
+# alc_raw$D_ALA12[alc_raw$D_ALA12 == 5] <- 0
+# alc_raw$D_ALD12[alc_raw$D_ALD12 == 5] <- 0
+# ied_raw$D_IED12[ied_raw$D_IED12 == 5] <- 0
+# anx_raw$D_AGO12[anx_raw$D_AGO12 == 5] <- 0
+# anx_raw$D_GAD12[anx_raw$D_GAD12 == 5] <- 0
+# anx_raw$D_PDS12[anx_raw$D_PDS12 == 5] <- 0
+# anx_raw$D_SO12[anx_raw$D_SO12 == 5] <- 0
 ```
 
 
@@ -55,26 +149,56 @@ cher_no <-
 aff <-
   aff_raw %>%
   mutate(afflifesum = DSM_MDE + DSM_DYS,
-         affyearsum = D_MDE12 + D_DYS12,
-         afflife = ifelse(afflifesum == 0, 0, 1),
-         affyear = ifelse(affyearsum == 0, 0, 1)) %>%
-  select(sampleid, afflife, affyear)
+         # affyearsum = D_MDE12 + D_DYS12,
+         afflife = ifelse(afflifesum == 0, 0, 1)) %>%
+         # affyear = ifelse(affyearsum == 0, 0, 1)) %>%
+  select(sampleid, afflife)
 
 alc <-
   alc_raw %>%
   mutate(alclifesum = DSM_ALA + DSM_ALD,
-         alcyearsum = D_ALA12 + D_ALD12,
-         alclife = ifelse(alclifesum == 0, 0, 1),
-         alcyear = ifelse(alcyearsum == 0, 0, 1)) %>%
-  select(sampleid, alclife, alcyear)
+         # alcyearsum = D_ALA12 + D_ALD12,
+         alclife = ifelse(alclifesum == 0, 0, 1)) %>%
+         # alcyear = ifelse(alcyearsum == 0, 0, 1)) %>%
+  select(sampleid, alclife)
 
 anx <-
   anx_raw %>%
   mutate(anxlifesum = DSM_GAD + DSM_PDS + DSM_SO + DSM_AGO,
-         anxyearsum = D_GAD12 + D_PDS12 + D_SO12 + D_AGO12, 
-         anxlife = ifelse(anxlifesum == 0, 0, 1),
-         anxyear = ifelse(anxyearsum == 0, 0, 1)) %>%
-  select(sampleid, anxlife, anxyear)
+         # anxyearsum = D_GAD12 + D_PDS12 + D_SO12 + D_AGO12, 
+         anxlife = ifelse(anxlifesum == 0, 0, 1)) %>%
+         # anxyear = ifelse(anxyearsum == 0, 0, 1)) %>%
+  select(sampleid, anxlife)
+
+ied <-
+  ied_raw %>%
+  mutate(iedlife = DSM_IED) %>%
+  select(sampleid, iedlife)
+```
+
+```{r}
+# merge
+diag1 <-
+  left_join(aff, alc, by = "sampleid")
+diag2 <-
+  left_join(diag1, anx, by = "sampleid")
+diag3 <-
+  left_join(diag2, ied, by = "sampleid")
+diag <-
+  left_join(diag3, cher, by = "sampleid") %>%
+  na.omit()
+```
+
+```{r}
+# year table
+alctab <- table(diag[c("alcyear", "affected_cher")])
+anxtab <- table(diag[c("anxyear", "affected_cher")])
+afftab <- table(diag[c("affyear", "affected_cher")])
+iedtab <- table(diag[c("iedyear", "affected_cher")])
+alctab
+afftab
+anxtab
+iedtab
 ```
 
 ```{r}
@@ -92,47 +216,8 @@ anxtest <-
   filter(anxyear == 1 & anxlife == 0)
 
 iedtest <-
-  ied_raw %>%
+  ied %>%
   filter(D_IED12 == 1 & DSM_IED == 0)
 
 # if year condition exist, then lifetime condition MUST exist  
 ```
-
-```{r}
-# merge
-diag1 <-
-  left_join(aff, alc, by = "sampleid")
-diag2 <-
-  left_join(diag1, anx, by = "sampleid")
-diag3 <-
-  left_join(diag2, ied_raw, by = "sampleid")
-diag <-
-  left_join(diag3, cher, by = "sampleid") %>%
-  na.omit()
-```
-
-
-```{r}
-# life table
-alctab <- table(diag[c("alclife", "dm40")])
-afftab <- table(diag[c("afflife", "dm40")])
-anxtab <- table(diag[c("anxlife", "dm40")])
-iedtab <- table(diag[c("DSM_IED", "dm40")])
-alctab
-afftab
-anxtab
-iedtab
-```
-
-```{r}
-# year table
-alctab <- table(diag[c("alcyear", "dm40")])
-afftab <- table(diag[c("affyear", "dm40")])
-anxtab <- table(diag[c("anxyear", "dm40")])
-iedtab <- table(diag[c("D_IED12", "dm40")])
-alctab
-afftab
-anxtab
-iedtab
-```
-

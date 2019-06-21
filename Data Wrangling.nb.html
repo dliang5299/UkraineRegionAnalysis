@@ -241,102 +241,111 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBsaWJyYXJpZXNcbmxpYnJhcnkoZGF0YS50YWJsZSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBsaWJyYXJpZXNcbmxpYnJhcnkodGlkeXZlcnNlKVxuYGBgIn0= -->
 <pre class="r"><code># libraries
-library(data.table)</code></pre>
+library(tidyverse)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoicGFja2FnZSCRZGF0YS50YWJsZZIgd2FzIGJ1aWx0IHVuZGVyIFIgdmVyc2lvbiAzLjUuMmRhdGEudGFibGUgMS4xMS44ICBMYXRlc3QgbmV3czogci1kYXRhdGFibGUuY29tXG4ifQ== -->
-<pre><code>package 㤼㸱data.table㤼㸲 was built under R version 3.5.2data.table 1.11.8  Latest news: r-datatable.com</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
-<pre class="r"><code>library(tidyverse)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoicGFja2FnZSCRdGlkeXZlcnNlkiB3YXMgYnVpbHQgdW5kZXIgUiB2ZXJzaW9uIDMuNS4yXHUwMDFiWzM3bS0tIFx1MDAxYlsxbUF0dGFjaGluZyBwYWNrYWdlc1x1MDAxYlsyMm0gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tIHRpZHl2ZXJzZSAxLjIuMSAtLVx1MDAxYlszOW1cblx1MDAxYlszN21cdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bWdncGxvdDJcdTAwMWJbMzdtIDMuMS4wICAgICBcdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bXB1cnJyICBcdTAwMWJbMzdtIDAuMi41XG5cdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bXRpYmJsZSBcdTAwMWJbMzdtIDEuNC4yICAgICBcdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bWRwbHlyICBcdTAwMWJbMzdtIDAuNy44XG5cdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bXRpZHlyICBcdTAwMWJbMzdtIDAuOC4yICAgICBcdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bXN0cmluZ3JcdTAwMWJbMzdtIDEuMy4xXG5cdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bXJlYWRyICBcdTAwMWJbMzdtIDEuMy4xICAgICBcdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bWZvcmNhdHNcdTAwMWJbMzdtIDAuMy4wXHUwMDFiWzM5bVxucGFja2FnZSCRZ2dwbG90MpIgd2FzIGJ1aWx0IHVuZGVyIFIgdmVyc2lvbiAzLjUuMnBhY2thZ2UgkXRpYmJsZZIgd2FzIGJ1aWx0IHVuZGVyIFIgdmVyc2lvbiAzLjUuMnBhY2thZ2UgkXRpZHlykiB3YXMgYnVpbHQgdW5kZXIgUiB2ZXJzaW9uIDMuNS4ycGFja2FnZSCRcmVhZHKSIHdhcyBidWlsdCB1bmRlciBSIHZlcnNpb24gMy41LjJwYWNrYWdlIJFkcGx5cpIgd2FzIGJ1aWx0IHVuZGVyIFIgdmVyc2lvbiAzLjUuMlx1MDAxYlszN20tLSBcdTAwMWJbMW1Db25mbGljdHNcdTAwMWJbMjJtIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSB0aWR5dmVyc2VfY29uZmxpY3RzKCkgLS1cblx1MDAxYlszMW14XHUwMDFiWzM3bSBcdTAwMWJbMzRtZHBseXJcdTAwMWJbMzdtOjpcdTAwMWJbMzJtYmV0d2VlbigpXHUwMDFiWzM3bSAgIG1hc2tzIFx1MDAxYlszNG1kYXRhLnRhYmxlXHUwMDFiWzM3bTo6YmV0d2VlbigpXG5cdTAwMWJbMzFteFx1MDAxYlszN20gXHUwMDFiWzM0bWRwbHlyXHUwMDFiWzM3bTo6XHUwMDFiWzMybWZpbHRlcigpXHUwMDFiWzM3bSAgICBtYXNrcyBcdTAwMWJbMzRtc3RhdHNcdTAwMWJbMzdtOjpmaWx0ZXIoKVxuXHUwMDFiWzMxbXhcdTAwMWJbMzdtIFx1MDAxYlszNG1kcGx5clx1MDAxYlszN206Olx1MDAxYlszMm1maXJzdCgpXHUwMDFiWzM3bSAgICAgbWFza3MgXHUwMDFiWzM0bWRhdGEudGFibGVcdTAwMWJbMzdtOjpmaXJzdCgpXG5cdTAwMWJbMzFteFx1MDAxYlszN20gXHUwMDFiWzM0bWRwbHlyXHUwMDFiWzM3bTo6XHUwMDFiWzMybWxhZygpXHUwMDFiWzM3bSAgICAgICBtYXNrcyBcdTAwMWJbMzRtc3RhdHNcdTAwMWJbMzdtOjpsYWcoKVxuXHUwMDFiWzMxbXhcdTAwMWJbMzdtIFx1MDAxYlszNG1kcGx5clx1MDAxYlszN206Olx1MDAxYlszMm1sYXN0KClcdTAwMWJbMzdtICAgICAgbWFza3MgXHUwMDFiWzM0bWRhdGEudGFibGVcdTAwMWJbMzdtOjpsYXN0KClcblx1MDAxYlszMW14XHUwMDFiWzM3bSBcdTAwMWJbMzRtcHVycnJcdTAwMWJbMzdtOjpcdTAwMWJbMzJtdHJhbnNwb3NlKClcdTAwMWJbMzdtIG1hc2tzIFx1MDAxYlszNG1kYXRhLnRhYmxlXHUwMDFiWzM3bTo6dHJhbnNwb3NlKClcdTAwMWJbMzltXG4ifQ== -->
+<!-- rnb-output-begin eyJkYXRhIjoicGFja2FnZSCRdGlkeXZlcnNlkiB3YXMgYnVpbHQgdW5kZXIgUiB2ZXJzaW9uIDMuNS4yXHUwMDFiWzM3bS0tIFx1MDAxYlsxbUF0dGFjaGluZyBwYWNrYWdlc1x1MDAxYlsyMm0gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tIHRpZHl2ZXJzZSAxLjIuMSAtLVx1MDAxYlszOW1cblx1MDAxYlszN21cdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bWdncGxvdDJcdTAwMWJbMzdtIDMuMS4wICAgICBcdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bXB1cnJyICBcdTAwMWJbMzdtIDAuMi41XG5cdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bXRpYmJsZSBcdTAwMWJbMzdtIDEuNC4yICAgICBcdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bWRwbHlyICBcdTAwMWJbMzdtIDAuNy44XG5cdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bXRpZHlyICBcdTAwMWJbMzdtIDAuOC4yICAgICBcdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bXN0cmluZ3JcdTAwMWJbMzdtIDEuMy4xXG5cdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bXJlYWRyICBcdTAwMWJbMzdtIDEuMy4xICAgICBcdTAwMWJbMzJtdlx1MDAxYlszN20gXHUwMDFiWzM0bWZvcmNhdHNcdTAwMWJbMzdtIDAuMy4wXHUwMDFiWzM5bVxucGFja2FnZSCRZ2dwbG90MpIgd2FzIGJ1aWx0IHVuZGVyIFIgdmVyc2lvbiAzLjUuMnBhY2thZ2UgkXRpYmJsZZIgd2FzIGJ1aWx0IHVuZGVyIFIgdmVyc2lvbiAzLjUuMnBhY2thZ2UgkXRpZHlykiB3YXMgYnVpbHQgdW5kZXIgUiB2ZXJzaW9uIDMuNS4ycGFja2FnZSCRcmVhZHKSIHdhcyBidWlsdCB1bmRlciBSIHZlcnNpb24gMy41LjJwYWNrYWdlIJFkcGx5cpIgd2FzIGJ1aWx0IHVuZGVyIFIgdmVyc2lvbiAzLjUuMlx1MDAxYlszN20tLSBcdTAwMWJbMW1Db25mbGljdHNcdTAwMWJbMjJtIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSB0aWR5dmVyc2VfY29uZmxpY3RzKCkgLS1cblx1MDAxYlszMW14XHUwMDFiWzM3bSBcdTAwMWJbMzRtZHBseXJcdTAwMWJbMzdtOjpcdTAwMWJbMzJtZmlsdGVyKClcdTAwMWJbMzdtIG1hc2tzIFx1MDAxYlszNG1zdGF0c1x1MDAxYlszN206OmZpbHRlcigpXG5cdTAwMWJbMzFteFx1MDAxYlszN20gXHUwMDFiWzM0bWRwbHlyXHUwMDFiWzM3bTo6XHUwMDFiWzMybWxhZygpXHUwMDFiWzM3bSAgICBtYXNrcyBcdTAwMWJbMzRtc3RhdHNcdTAwMWJbMzdtOjpsYWcoKVx1MDAxYlszOW1cbiJ9 -->
 <pre><code>package 㤼㸱tidyverse㤼㸲 was built under R version 3.5.2[37m-- [1mAttaching packages[22m --------------------------------------- tidyverse 1.2.1 --[39m
 [37m[32mv[37m [34mggplot2[37m 3.1.0     [32mv[37m [34mpurrr  [37m 0.2.5
 [32mv[37m [34mtibble [37m 1.4.2     [32mv[37m [34mdplyr  [37m 0.7.8
 [32mv[37m [34mtidyr  [37m 0.8.2     [32mv[37m [34mstringr[37m 1.3.1
 [32mv[37m [34mreadr  [37m 1.3.1     [32mv[37m [34mforcats[37m 0.3.0[39m
 package 㤼㸱ggplot2㤼㸲 was built under R version 3.5.2package 㤼㸱tibble㤼㸲 was built under R version 3.5.2package 㤼㸱tidyr㤼㸲 was built under R version 3.5.2package 㤼㸱readr㤼㸲 was built under R version 3.5.2package 㤼㸱dplyr㤼㸲 was built under R version 3.5.2[37m-- [1mConflicts[22m ------------------------------------------ tidyverse_conflicts() --
-[31mx[37m [34mdplyr[37m::[32mbetween()[37m   masks [34mdata.table[37m::between()
-[31mx[37m [34mdplyr[37m::[32mfilter()[37m    masks [34mstats[37m::filter()
-[31mx[37m [34mdplyr[37m::[32mfirst()[37m     masks [34mdata.table[37m::first()
-[31mx[37m [34mdplyr[37m::[32mlag()[37m       masks [34mstats[37m::lag()
-[31mx[37m [34mdplyr[37m::[32mlast()[37m      masks [34mdata.table[37m::last()
-[31mx[37m [34mpurrr[37m::[32mtranspose()[37m masks [34mdata.table[37m::transpose()[39m</code></pre>
+[31mx[37m [34mdplyr[37m::[32mfilter()[37m masks [34mstats[37m::filter()
+[31mx[37m [34mdplyr[37m::[32mlag()[37m    masks [34mstats[37m::lag()[39m</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShoYXZlbilcbmxpYnJhcnkodGlkeXIpXG5gYGAifQ== -->
-<pre class="r"><code>library(haven)
-library(tidyr)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShoYXZlbilcbmBgYCJ9 -->
+<pre class="r"><code>library(haven)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyByZWFkIGRhdGFcbnN1cnZleW9ic19yYXcgPC1cbiAgcmVhZF9zYXYoXCJSZWdpb25zX3ByZWxpbV9kYXRhc2V0LnNhdlwiKVxuZGlhZ19yYXcgPC1cbiAgcmVhZF9zYXYoXCJ1a3JhaW5lX2RpYS5zYXZcIilcbiMgY2lkaV9yYXcgPC1cbiMgICByZWFkX3NhdihcInVrcmFpbmVfbWFpbl9SVV8wMTYxMjE5LnNhdlwiKVxuYGBgIn0= -->
-<pre class="r"><code># read data
-surveyobs_raw &lt;-
-  read_sav(&quot;Regions_prelim_dataset.sav&quot;)
-diag_raw &lt;-
-  read_sav(&quot;ukraine_dia.sav&quot;)
-# cidi_raw &lt;-
-#   read_sav(&quot;ukraine_main_RU_0161219.sav&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBqb2luIGRhdGFcbmNpZGkgPC1cbiAgY2lkaV9yYXcgJT4lXG4gIGZpbHRlcihERTIgIT0gTkEpICU+JVxuICBzZWxlY3Qoc2FtcGxlaWQsIERFMzJfMSwgREUzMl8yLCBERTMyXzMsIERFMzJfNCwgREUzMl81LCBERTMyXzYsIERFMzJfNywgREUzMl84LCBERTMyXzksIERFMzJfOTgsIERFMzJfOTkpXG5gYGAifQ== -->
-<pre class="r"><code># join data
-cidi &lt;-
-  cidi_raw %&gt;%
-  filter(DE2 != NA) %&gt;%
-  select(sampleid, DE32_1, DE32_2, DE32_3, DE32_4, DE32_5, DE32_6, DE32_7, DE32_8, DE32_9, DE32_98, DE32_99)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gZmlsdGVyX2ltcGwoLmRhdGEsIHF1bykgOiBcbiAgRXZhbHVhdGlvbiBlcnJvcjogb2JqZWN0ICdERTInIG5vdCBmb3VuZC5cbiJ9 -->
-<pre><code>Error in filter_impl(.data, quo) : 
-  Evaluation error: object 'DE2' not found.</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoicGFja2FnZSDjpLzjuLFoYXZlbuOkvOO4siB3YXMgYnVpbHQgdW5kZXIgUiB2ZXJzaW9uIDMuNS4zXG4ifQ== -->
+<pre><code>package 㤼㸱haven㤼㸲 was built under R version 3.5.3</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjaGVybi4gcVxuY2hlciA8LVxuICBjaWRpX3JhdyAlPiVcbiAgc2VsZWN0KHNhbXBsZWlkLCBkbTQwKVxuY2hlcl95ZXMgPC1cbiAgY2hlciAlPiVcbiAgZmlsdGVyKGRtNDAgPT0gMSlcbmNoZXJfbm8gPC1cbiAgY2hlciAlPiVcbiAgZmlsdGVyKGRtNDAgPT0gMClcbmBgYCJ9 -->
-<pre class="r"><code># chern. q
-cher &lt;-
-  cidi_raw %&gt;%
-  select(sampleid, dm40)
-cher_yes &lt;-
-  cher %&gt;%
-  filter(dm40 == 1)
-cher_no &lt;-
-  cher %&gt;%
-  filter(dm40 == 0)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkYXRhLnRhYmxlKVxuYGBgIn0= -->
+<pre class="r"><code>library(data.table)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBzdWJzZXQgZGlhZyBkYXRhXG5hbGNfcmF3IDwtXG4gIGRpYWdfcmF3ICU+JVxuICBzZWxlY3Qoc2FtcGxlaWQsIERTTV9BTEEsIERTTV9BTEQsIERfQUxBMTIsIERfQUxEMTIpXG5hbnhfcmF3IDwtXG4gIGRpYWdfcmF3ICU+JVxuICBzZWxlY3Qoc2FtcGxlaWQsIERTTV9HQUQsIERTTV9QRFMsIERTTV9TTywgRFNNX0FHTywgRF9HQUQxMiwgRF9QRFMxMiwgRF9TTzEyLCBEX0FHTzEyKVxuaWVkX3JhdyA8LVxuICBkaWFnX3JhdyAlPiVcbiAgc2VsZWN0KHNhbXBsZWlkLCBEU01fSUVELCBEX0lFRDEyKVxuYWZmX3JhdyA8LVxuICBkaWFnX3JhdyAlPiVcbiAgc2VsZWN0KHNhbXBsZWlkLCBEU01fTURFLCBEU01fRFlTLCBEX01ERTEyLCBEX0RZUzEyKVxuYGBgIn0= -->
-<pre class="r"><code># subset diag data
-alc_raw &lt;-
-  diag_raw %&gt;%
-  select(sampleid, DSM_ALA, DSM_ALD, D_ALA12, D_ALD12)
-anx_raw &lt;-
-  diag_raw %&gt;%
-  select(sampleid, DSM_GAD, DSM_PDS, DSM_SO, DSM_AGO, D_GAD12, D_PDS12, D_SO12, D_AGO12)
-ied_raw &lt;-
-  diag_raw %&gt;%
-  select(sampleid, DSM_IED, D_IED12)
-aff_raw &lt;-
-  diag_raw %&gt;%
-  select(sampleid, DSM_MDE, DSM_DYS, D_MDE12, D_DYS12)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
+<!-- rnb-output-begin eyJkYXRhIjoicGFja2FnZSDjpLzjuLFkYXRhLnRhYmxl46S847iyIHdhcyBidWlsdCB1bmRlciBSIHZlcnNpb24gMy41LjJkYXRhLnRhYmxlIDEuMTEuOCAgTGF0ZXN0IG5ld3M6IHItZGF0YXRhYmxlLmNvbVxuXG5BdHRhY2hpbmcgcGFja2FnZTog46S847ixZGF0YS50YWJsZeOkvOO4slxuXG5UaGUgZm9sbG93aW5nIG9iamVjdHMgYXJlIG1hc2tlZCBmcm9tIOOkvOO4sXBhY2thZ2U6ZHBseXLjpLzjuLI6XG5cbiAgICBiZXR3ZWVuLCBmaXJzdCwgbGFzdFxuXG5UaGUgZm9sbG93aW5nIG9iamVjdCBpcyBtYXNrZWQgZnJvbSDjpLzjuLFwYWNrYWdlOnB1cnJy46S847iyOlxuXG4gICAgdHJhbnNwb3NlXG4ifQ== -->
+<pre><code>package 㤼㸱data.table㤼㸲 was built under R version 3.5.2data.table 1.11.8  Latest news: r-datatable.com
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRhdGEgV3JhbmdsaW5nIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KYGBge3J9DQojIGxpYnJhcmllcw0KbGlicmFyeShkYXRhLnRhYmxlKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KGhhdmVuKQ0KbGlicmFyeSh0aWR5cikNCmBgYA0KDQpgYGB7cn0NCiMgcmVhZCBkYXRhDQpzdXJ2ZXlvYnNfcmF3IDwtDQogIHJlYWRfc2F2KCJSZWdpb25zX3ByZWxpbV9kYXRhc2V0LnNhdiIpDQpkaWFnX3JhdyA8LQ0KICByZWFkX3NhdigidWtyYWluZV9kaWEuc2F2IikNCmNpZGlfcmF3IDwtDQogIHJlYWRfc2F2KCJ1a3JhaW5lX21haW5fUlVfMDE2MTIxOS5zYXYiKQ0KYGBgDQoNCmBgYHtyfQ0KIyByZWxpZ2lvbiBkYXRhc2V0DQpjaWRpIDwtDQogIGNpZGlfcmF3ICU+JQ0KICBmaWx0ZXIoIWlzLm5hKERFNCkpICU+JQ0KICBzZWxlY3Qoc2FtcGxlaWQsIERFMzJfMSwgREUzMl8yLCBERTMyXzMsIERFMzJfNCwgREUzMl81LCBERTMyXzYsIERFMzJfNywgREUzMl84LCBERTMyXzksIERFMzJfOTgsIERFMzJfOTkpDQoNCndyaXRlX3NhdihjaWRpLCAicmVsaWdpb24uc2F2IikNCmBgYA0KDQpgYGB7cn0NCiMgY2hlcm4uIHENCmNoZXIgPC0NCiAgY2lkaV9yYXcgJT4lDQogIHNlbGVjdChzYW1wbGVpZCwgZG00MCkNCmBgYA0KDQpgYGB7cn0NCiMgc3Vic2V0IGRpYWcgZGF0YQ0KYWxjX3JhdyA8LQ0KICBkaWFnX3JhdyAlPiUNCiAgc2VsZWN0KHNhbXBsZWlkLCBEU01fQUxBLCBEU01fQUxELCBEX0FMQTEyLCBEX0FMRDEyKQ0KYW54X3JhdyA8LQ0KICBkaWFnX3JhdyAlPiUNCiAgc2VsZWN0KHNhbXBsZWlkLCBEU01fR0FELCBEU01fUERTLCBEU01fU08sIERTTV9BR08sIERfR0FEMTIsIERfUERTMTIsIERfU08xMiwgRF9BR08xMikNCmllZF9yYXcgPC0NCiAgZGlhZ19yYXcgJT4lDQogIHNlbGVjdChzYW1wbGVpZCwgRFNNX0lFRCwgRF9JRUQxMikNCmFmZl9yYXcgPC0NCiAgZGlhZ19yYXcgJT4lDQogIHNlbGVjdChzYW1wbGVpZCwgRFNNX01ERSwgRFNNX0RZUywgRF9NREUxMiwgRF9EWVMxMikNCmBgYA0KDQo=</div>
+Attaching package: 㤼㸱data.table㤼㸲
+
+The following objects are masked from 㤼㸱package:dplyr㤼㸲:
+
+    between, first, last
+
+The following object is masked from 㤼㸱package:purrr㤼㸲:
+
+    transpose</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyByZWFkIGRhdGFcbmNpZGlfcmF3IDwtXG4gIGZyZWFkKFwidWtybWFpbl9SVV8wNjE0MTkuY3N2XCIpXG50ZXN0X3JhdyA8LVxuICByZWFkX3NhdihcIkFuYWx5c2lzRGF0YWJhc2VGb3JTdGF0MjAxLnNhdlwiKVxuYGBgIn0= -->
+<pre class="r"><code># read data
+cidi_raw &lt;-
+  fread(&quot;ukrmain_RU_061419.csv&quot;)
+test_raw &lt;-
+  read_sav(&quot;AnalysisDatabaseForStat201.sav&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBSRVBST0RVQ0lORyBUSEUgRk9VUiBDT1JFIENPTkRJVElPTlNcbmRpYWcgPC1cbiAgY2lkaV9yYXcgJT4lXG4gIG11dGF0ZShhZmZlY3RlZF9jaGVyID0gaWZlbHNlKCFpcy5uYShkbTQwKSwgZG00MCwgZGU0MCksXG4gICAgICAgICBhbnggPSBpZmVsc2UoRFNNX0FHTyA9PSAxfERTTV9TTyA9PSAxfERTTV9HQUQgPT0gMSwgMSwgMCksXG4gICAgICAgICAjIGJyb21ldCBhbmQgYm9sdCBwYXBlcnMgYm90aCBpbmNsdWRlIHBhbmljIGRpc29yZGVycyBpbiBhbnhpZXR5LCBcbiAgICAgICAgICMgYnV0IHRvIG1hdGNoIGNvdW50cyBpdCdzIG5vdCBpbmNsdWRlZCBoZXJlLiBpbnZlc3RpZ2F0ZS5cbiAgICAgICAgIGllZCA9IGlmZWxzZShEU01fSUVESCA9PSAxLCAxLCAwKSxcbiAgICAgICAgIGFmZiA9IGlmZWxzZShEU01fTURFID09IDF8RFNNX0RZUyA9PSAxLCAxLCAwKSxcbiAgICAgICAgIGFsYyA9IGlmZWxzZShEU01fQUxBID09IDF8RFNNX0FMRCA9PSAxLCAxLCAwKSkgJT4lXG4gIHNlbGVjdChzYW1wbGVpZCwgYWZmZWN0ZWRfY2hlciwgYW54LCBpZWQsIGFmZiwgYWxjLCB3ZWlnaHQxLCBzZWN1LCBzdHJhdGEpXG5gYGAifQ== -->
+<pre class="r"><code># REPRODUCING THE FOUR CORE CONDITIONS
+diag &lt;-
+  cidi_raw %&gt;%
+  mutate(affected_cher = ifelse(!is.na(dm40), dm40, de40),
+         anx = ifelse(DSM_AGO == 1|DSM_SO == 1|DSM_GAD == 1, 1, 0),
+         # bromet and bolt papers both include panic disorders in anxiety, 
+         # but to match counts it's not included here. investigate.
+         ied = ifelse(DSM_IEDH == 1, 1, 0),
+         aff = ifelse(DSM_MDE == 1|DSM_DYS == 1, 1, 0),
+         alc = ifelse(DSM_ALA == 1|DSM_ALD == 1, 1, 0)) %&gt;%
+  select(sampleid, affected_cher, anx, ied, aff, alc, weight1, secu, strata)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="scrap-work" class="section level1">
+<h1>Scrap Work</h1>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjaGVybi4gcVxuY2hlcl9yYXcgPC1cbiAgY2lkaV9yYXcgJT4lXG4gIG11dGF0ZShhZmZlY3RlZF9jaGVyID0gaWZlbHNlKCFpcy5uYShkbTQwKSwgZG00MCwgZGU0MCksXG4gICAgICAgICBzYW1wbGVpZCA9IGFzLm51bWVyaWMoc2FtcGxlaWQpKSAlPiVcbiAgc2VsZWN0KHNhbXBsZWlkLCBBR0UsIGFmZmVjdGVkX2NoZXIsIHNlY3UsIHN0cmF0YSwgd2VpZ2h0MSlcbmBgYCJ9 -->
+<pre class="r"><code># chern. q
+cher_raw &lt;-
+  cidi_raw %&gt;%
+  mutate(affected_cher = ifelse(!is.na(dm40), dm40, de40),
+         sampleid = as.numeric(sampleid)) %&gt;%
+  select(sampleid, AGE, affected_cher, secu, strata, weight1)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBzdWJzZXRcbmRpYWcgPC1cbiAgZGlhZ19yYXcgJT4lXG4gIG11dGF0ZShzYW1wbGVpZCA9IGFzLm51bWVyaWMoc2FtcGxlaWQpKSAlPiVcbiAgbGVmdF9qb2luKGNoZXJfcmF3LCBieSA9IFwic2FtcGxlaWRcIikgJT4lXG4gIG11dGF0ZShhbnggPSBpZmVsc2UoKDIwMDIgLSBBR0UgKyBBR09fT05EID49IDE5ODYpIHwgXG4gICAgICAgICAgICAgICAgICAgICAgICAoMjAwMiAtIEFHRSArIFNPX09ORCA+PSAxOTg2KSB8XG4gICAgICAgICAgICAgICAgICAgICAgICAoMjAwMiAtIEFHRSArIEdBRF9PTkQgPj0gMTk4NikgfFxuICAgICAgICAgICAgICAgICAgICAgICAgKDIwMDIgLSBBR0UgKyBQRF9PTkQgPj0gMTk4NiksIDEsIDApLFxuICAgICAgICAgaWVkID0gaWZlbHNlKDIwMDIgLSBBR0UgKyBJRURfT05EID49IDE5ODYsIDEsIDApLFxuICAgICAgICAgYWZmID0gaWZlbHNlKCgyMDAyIC0gQUdFICsgTURFX09ORCA+PSAxOTg2KSB8IFxuICAgICAgICAgICAgICAgICAgICAgICAgKDIwMDIgLSBBR0UgKyBEWVNfT05EID49IDE5ODYpLCAxLCAwKSxcbiAgICAgICAgIGFsYyA9IGlmZWxzZSgoMjAwMiAtIEFHRSArIEFMQV9PTkQgPj0gMTk4NikgfCBcbiAgICAgICAgICAgICAgICAgICAgICAgICgyMDAyIC0gQUdFICsgQUxEX09ORCA+PSAxOTg2KSwgMSwgMCkpICU+JVxuICBzZWxlY3Qoc2FtcGxlaWQsIGFmZmVjdGVkX2NoZXIsIGFueCwgaWVkLCBhZmYsIGFsYywgd2VpZ2h0MSwgc2VjdSwgc3RyYXRhKVxuYGBgIn0= -->
+<pre class="r"><code># subset
+diag &lt;-
+  diag_raw %&gt;%
+  mutate(sampleid = as.numeric(sampleid)) %&gt;%
+  left_join(cher_raw, by = &quot;sampleid&quot;) %&gt;%
+  mutate(anx = ifelse((2002 - AGE + AGO_OND &gt;= 1986) | 
+                        (2002 - AGE + SO_OND &gt;= 1986) |
+                        (2002 - AGE + GAD_OND &gt;= 1986) |
+                        (2002 - AGE + PD_OND &gt;= 1986), 1, 0),
+         ied = ifelse(2002 - AGE + IED_OND &gt;= 1986, 1, 0),
+         aff = ifelse((2002 - AGE + MDE_OND &gt;= 1986) | 
+                        (2002 - AGE + DYS_OND &gt;= 1986), 1, 0),
+         alc = ifelse((2002 - AGE + ALA_OND &gt;= 1986) | 
+                        (2002 - AGE + ALD_OND &gt;= 1986), 1, 0)) %&gt;%
+  select(sampleid, affected_cher, anx, ied, aff, alc, weight1, secu, strata)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRhdGEgV3JhbmdsaW5nIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KYGBge3J9DQojIGxpYnJhcmllcw0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KGhhdmVuKQ0KbGlicmFyeShkYXRhLnRhYmxlKQ0KYGBgDQoNCmBgYHtyfQ0KIyByZWFkIGRhdGENCmNpZGlfcmF3IDwtDQogIGZyZWFkKCJ1a3JtYWluX1JVXzA2MTQxOS5jc3YiKQ0KdGVzdF9yYXcgPC0NCiAgcmVhZF9zYXYoIkFuYWx5c2lzRGF0YWJhc2VGb3JTdGF0MjAxLnNhdiIpDQpgYGANCg0KYGBge3J9DQojIFJFUFJPRFVDSU5HIFRIRSBGT1VSIENPUkUgQ09ORElUSU9OUw0KZGlhZyA8LQ0KICBjaWRpX3JhdyAlPiUNCiAgbXV0YXRlKGFmZmVjdGVkX2NoZXIgPSBpZmVsc2UoIWlzLm5hKGRtNDApLCBkbTQwLCBkZTQwKSwNCiAgICAgICAgIGFueCA9IGlmZWxzZShEU01fQUdPID09IDF8RFNNX1NPID09IDF8RFNNX0dBRCA9PSAxLCAxLCAwKSwNCiAgICAgICAgICMgYnJvbWV0IGFuZCBib2x0IHBhcGVycyBib3RoIGluY2x1ZGUgcGFuaWMgZGlzb3JkZXJzIGluIGFueGlldHksIA0KICAgICAgICAgIyBidXQgdG8gbWF0Y2ggY291bnRzIGl0J3Mgbm90IGluY2x1ZGVkIGhlcmUuIGludmVzdGlnYXRlLg0KICAgICAgICAgaWVkID0gaWZlbHNlKERTTV9JRURIID09IDEsIDEsIDApLA0KICAgICAgICAgYWZmID0gaWZlbHNlKERTTV9NREUgPT0gMXxEU01fRFlTID09IDEsIDEsIDApLA0KICAgICAgICAgYWxjID0gaWZlbHNlKERTTV9BTEEgPT0gMXxEU01fQUxEID09IDEsIDEsIDApKSAlPiUNCiAgc2VsZWN0KHNhbXBsZWlkLCBhZmZlY3RlZF9jaGVyLCBhbngsIGllZCwgYWZmLCBhbGMsIHdlaWdodDEsIHNlY3UsIHN0cmF0YSkNCmBgYA0KDQojIFNjcmFwIFdvcmsNCg0KYGBge3J9DQojIGNoZXJuLiBxDQpjaGVyX3JhdyA8LQ0KICBjaWRpX3JhdyAlPiUNCiAgbXV0YXRlKGFmZmVjdGVkX2NoZXIgPSBpZmVsc2UoIWlzLm5hKGRtNDApLCBkbTQwLCBkZTQwKSwNCiAgICAgICAgIHNhbXBsZWlkID0gYXMubnVtZXJpYyhzYW1wbGVpZCkpICU+JQ0KICBzZWxlY3Qoc2FtcGxlaWQsIEFHRSwgYWZmZWN0ZWRfY2hlciwgc2VjdSwgc3RyYXRhLCB3ZWlnaHQxKQ0KYGBgDQoNCmBgYHtyfQ0KIyBzdWJzZXQNCmRpYWcgPC0NCiAgZGlhZ19yYXcgJT4lDQogIG11dGF0ZShzYW1wbGVpZCA9IGFzLm51bWVyaWMoc2FtcGxlaWQpKSAlPiUNCiAgbGVmdF9qb2luKGNoZXJfcmF3LCBieSA9ICJzYW1wbGVpZCIpICU+JQ0KICBtdXRhdGUoYW54ID0gaWZlbHNlKCgyMDAyIC0gQUdFICsgQUdPX09ORCA+PSAxOTg2KSB8IA0KICAgICAgICAgICAgICAgICAgICAgICAgKDIwMDIgLSBBR0UgKyBTT19PTkQgPj0gMTk4NikgfA0KICAgICAgICAgICAgICAgICAgICAgICAgKDIwMDIgLSBBR0UgKyBHQURfT05EID49IDE5ODYpIHwNCiAgICAgICAgICAgICAgICAgICAgICAgICgyMDAyIC0gQUdFICsgUERfT05EID49IDE5ODYpLCAxLCAwKSwNCiAgICAgICAgIGllZCA9IGlmZWxzZSgyMDAyIC0gQUdFICsgSUVEX09ORCA+PSAxOTg2LCAxLCAwKSwNCiAgICAgICAgIGFmZiA9IGlmZWxzZSgoMjAwMiAtIEFHRSArIE1ERV9PTkQgPj0gMTk4NikgfCANCiAgICAgICAgICAgICAgICAgICAgICAgICgyMDAyIC0gQUdFICsgRFlTX09ORCA+PSAxOTg2KSwgMSwgMCksDQogICAgICAgICBhbGMgPSBpZmVsc2UoKDIwMDIgLSBBR0UgKyBBTEFfT05EID49IDE5ODYpIHwgDQogICAgICAgICAgICAgICAgICAgICAgICAoMjAwMiAtIEFHRSArIEFMRF9PTkQgPj0gMTk4NiksIDEsIDApKSAlPiUNCiAgc2VsZWN0KHNhbXBsZWlkLCBhZmZlY3RlZF9jaGVyLCBhbngsIGllZCwgYWZmLCBhbGMsIHdlaWdodDEsIHNlY3UsIHN0cmF0YSkNCmBgYA0KDQoNCg==</div>
 
 
 
