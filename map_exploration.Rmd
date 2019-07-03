@@ -1,0 +1,173 @@
+---
+title: "Exploratory Maps"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+# Front Matter
+
+```{r results = FALSE, include = FALSE}
+# libraries
+library(maps)
+library(maptools)
+library(data.table)
+library(tidyverse)
+library(RColorBrewer)
+library(classInt)
+library(mosaic)
+library(sp)
+```
+
+```{r}
+# read data and map files
+### map shape file
+ukroblast <- readShapePoly("ukraineGIS/gadm36_UKR_1.shp",
+                        proj4string = CRS("+proj=longlat"))
+### regional gdp data
+gdpraw <- 
+  fread("grossregionalproduct.csv")
+### household income data 2002
+hh_incraw <-
+  fread("hhincome.csv")
+```
+
+# Map Exploration
+
+```{r}
+### look at names
+ukroblast$NAME_1
+```
+
+### 8 Region Map
+
+```{r}
+ukroblast$region8 <-
+  derivedFactor(East = ukroblast$NAME_1 == "Donets'k"|ukroblast$NAME_1 == "Luhans'k",
+                Eastcentral = ukroblast$NAME_1 == "Kharkiv"|ukroblast$NAME_1 == "Zaporizhzhya"|
+                  ukroblast$NAME_1 == "Dnipropetrovs'k",
+                Krym = ukroblast$NAME_1 == "Crimea"|ukroblast$NAME_1 == "Sevastopol'",
+                South = ukroblast$NAME_1 == "Kherson"|ukroblast$NAME_1 == "Mykolayiv"|ukroblast$NAME_1 == "Odessa",
+                Northcentral = ukroblast$NAME_1 == "Chernihiv"|ukroblast$NAME_1 == "Sumy"|
+                  ukroblast$NAME_1 == "Poltava"|ukroblast$NAME_1 == "Cherkasy"|ukroblast$NAME_1 == "Kirovohrad"|
+                  ukroblast$NAME_1 == "Kiev"|ukroblast$NAME_1 == "Kiev City",
+                Westcentral = ukroblast$NAME_1 == "Khmel'nyts'kyy"|ukroblast$NAME_1 == "Zhytomyr"|
+                  ukroblast$NAME_1 == "Vinnytsya"|ukroblast$NAME_1 == "Rivne"|ukroblast$NAME_1 == "Volyn",
+                West = ukroblast$NAME_1 == "Ivano-Frankivs'k"|ukroblast$NAME_1 == "L'viv"|ukroblast$NAME_1 == "Ternopil'",
+                Southwest = ukroblast$NAME_1 == "Chernivtsi"|ukroblast$NAME_1 == "Transcarpathia")
+
+color.pallete <- rev(brewer.pal(8, "RdBu"))
+colors <-
+   with(ukroblast, data.frame(region8 = levels(ukroblast$region8),
+                   color = I(brewer.pal(nlevels(ukroblast$region8), name = 'Dark2'))))
+plot(ukroblast, col = colors$color[match(ukroblast$region8, colors$region8)],
+     main = '8 Region Ukraine')
+legend(x = 'bottomleft', bty = "n", y.intersp = 0.75,
+       legend = as.character(colors$region8), fill = colors$color)
+```
+
+### GDP Per Capita (2004)
+
+```{r}
+# gdp data map
+gdp <-
+  gdpraw[6:32] %>%
+  select(V1, V29)
+colnames(gdp) <-
+  c("Oblast", "PerCapitaGDP")
+gdp <-
+  gdp %>%
+  mutate(PerCapitaGDP = as.numeric(PerCapitaGDP),
+         Oblast = ifelse(Oblast == "Autonomous Republic of Crimea", "Crimea", 
+                  ifelse(Oblast == "Dnipropetrovsk", "Dnipropetrovs'k",
+                  ifelse(Oblast == "Donetsk", "Donets'k",
+                  ifelse(Oblast == "Ivano-Frankivsk", "Ivano-Frankivs'k",
+                  ifelse(Oblast == "Khmelnytskiy", "Khmel'nyts'kyy",
+                  ifelse(Oblast == "Kyiv" & PerCapitaGDP == 23130, "Kiev City",
+                  ifelse(Oblast == "Kyiv" & PerCapitaGDP == 6652, "Kiev",
+                  ifelse(Oblast == "Lviv", "L'viv",
+                  ifelse(Oblast == "Luhansk", "Luhans'k",
+                  ifelse(Oblast == "Odesa", "Odessa",
+                  ifelse(Oblast == "Sevastopol", "Sevastopol'",
+                  ifelse(Oblast == "Ternopil", "Ternopil'",
+                  ifelse(Oblast == "Zakarpattya", "Transcarpathia", Oblast)))))))))))))) %>%
+  select(Oblast, PerCapitaGDP) %>%
+  arrange(Oblast)
+ukroblast$percapitaGDP <-
+  gdp$PerCapitaGDP
+brks <- c(0, 4750, 6250, 8000, 10000)
+color.pallete <- rev(brewer.pal(4,"RdBu"))
+class.fitted <- classIntervals(var = ukroblast$percapitaGDP, n = 4, style = "fixed",
+                               fixedBreaks = brks, dataPrecision = 4)
+color.code.fitted <- findColours(class.fitted, color.pallete)
+plot(ukroblast, col = color.code.fitted, main = "GDP Per Capita By Oblast")
+legend("bottomleft", legend = c("< 4750", "4750-6250", "6250-8000", "> 10000"), 
+       fill = color.pallete, title = "Per Capita GDP")
+```
+
+### Household income (2002)
+
+```{r}
+# hh data map
+hh_incraw1 <-
+  hh_incraw[6:33] %>%
+  select(V1, V17)
+colnames(hh_incraw1) <-
+  c("Oblast", "disp_inc")
+### look at names
+ukroblast$NAME_1
+hh_inc <-
+  hh_incraw1 %>%
+  mutate(disp_inc = as.numeric(disp_inc),
+         Oblast = ifelse(Oblast == "Autonomous Republic of Crimea", "Crimea", 
+                  ifelse(Oblast == "Dnipropetrovsk", "Dnipropetrovs'k",
+                  ifelse(Oblast == "Donetsk", "Donets'k",
+                  ifelse(Oblast == "Ivano-Frankivsk", "Ivano-Frankivs'k",
+                  ifelse(Oblast == "Khmelnytskiy", "Khmel'nyts'kyy",
+                  ifelse(Oblast == "city of Kyiv", "Kiev City",
+                  ifelse(Oblast == "Kyiv", "Kiev",
+                  ifelse(Oblast == "Lviv", "L'viv",
+                  ifelse(Oblast == "Luhansk", "Luhans'k",
+                  ifelse(Oblast == "Odesa", "Odessa",
+                  ifelse(Oblast == "city of Sevastopol", "Sevastopol'",
+                  ifelse(Oblast == "Ternopil", "Ternopil'",
+                  ifelse(Oblast == "Zakarpattya", "Transcarpathia", Oblast)))))))))))))) %>%
+  select(Oblast, disp_inc) %>%
+  filter(Oblast != "oblasts") %>%
+  arrange(Oblast)
+ukroblast$percapGDP <-
+  reg_gdp$PerCapitaGDP
+brks <- c(0, 4750, 6250, 8000, 10000)
+color.pallete <- rev(brewer.pal(4,"RdBu"))
+class.fitted <- classIntervals(var = ukroblast$percapGDP, n = 4, style = "fixed",
+                               fixedBreaks = brks, dataPrecision = 4)
+color.code.fitted <- findColours(class.fitted, color.pallete)
+plot(ukroblast, col = color.code.fitted, main = "GDP Per Capita By Oblast")
+legend("bottomleft", legend = c("< 4750", "4750-6250", "6250-8000", "> 10000"), 
+       fill = color.pallete, title = "Per Capita GDP")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
